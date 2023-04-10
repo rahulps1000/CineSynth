@@ -42,16 +42,18 @@ body::before {
 }
 
 .clip-star {
-  clip-path: polygon(50% 0%,
-      63% 38%,
-      100% 38%,
-      69% 59%,
-      82% 100%,
-      50% 75%,
-      18% 100%,
-      31% 59%,
-      0% 38%,
-      37% 38%);
+  clip-path: polygon(
+    50% 0%,
+    63% 38%,
+    100% 38%,
+    69% 59%,
+    82% 100%,
+    50% 75%,
+    18% 100%,
+    31% 59%,
+    0% 38%,
+    37% 38%
+  );
 }
 
 .skeleton {
@@ -70,7 +72,7 @@ body::before {
   }
 
   100% {
-        opacity: 80%;
+    opacity: 80%;
   }
 }
 
@@ -91,19 +93,19 @@ body::before {
 .two {
   transform-origin: center right;
   animation: spin2 3s linear infinite;
-  animation-delay: .2s;
+  animation-delay: 0.2s;
 }
 
 .three {
   transform-origin: center right;
   animation: spin3 3s linear infinite;
-  animation-delay: .3s;
+  animation-delay: 0.3s;
 }
 
 .four {
   transform-origin: center right;
   animation: spin4 3s linear infinite;
-  animation-delay: .4s;
+  animation-delay: 0.4s;
 }
 
 @keyframes spin {

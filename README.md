@@ -1,6 +1,19 @@
 # CINE SYNTH
 
-GPT Powered Movie/Series Recomendation System
+GPT Powered Movie/Series Recomendation System.
+
+Set the following environment variables.
+
+- API Key from [Open AI](https://platform.openai.com/account/api-keys)
+  ```
+  OPEN_AI_API_KEY
+  ```
+- Api Key from [TMDB](https://www.themoviedb.org/settings/api)
+  ```
+  TMDB_API_KEY
+  ```
+
+## Next Js
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
