@@ -14,8 +14,9 @@ function NavBar() {
 					</div>
 					<div className="flex items-center">
 						<a
-							href="https://github.com/"
+							href="https://github.com/rahulps1000"
 							className="text-gray-400 hover:text-white"
+							target="_blank"
 						>
 							<svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
 								<path

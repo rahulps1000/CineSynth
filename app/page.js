@@ -84,6 +84,7 @@ function Home() {
 							<a
 								href="https://github.com/rahulps1000/CineSynth"
 								className="text-xl px-3 py-2 rounded-lg border hover:bg-gray-400"
+								target="_blank"
 							>
 								View Source Code
 							</a>
