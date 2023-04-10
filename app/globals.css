@@ -3,25 +3,233 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-color: #22262f;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-color: #22262f;
+  }
+} */
+
+body {
+  background-image: url("https://image.tmdb.org/t/p/original/6YwkGolwdOMNpbTOmLjoehlVWs5.jpg");
+  @apply bg-cover bg-no-repeat w-screen h-screen text-white overflow-x-hidden bg-fixed bg-center;
+}
+
+body::before {
+  content: "";
+  background-color: var(--background-color);
+  @apply fixed top-0 left-0 w-full h-full opacity-90 z-[-1];
+}
+
+.selected-btn {
+  @apply bg-gray-200 text-black;
+}
+
+/* Customize scrollbar style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f7fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+}
+
+.clip-star {
+  clip-path: polygon(50% 0%,
+      63% 38%,
+      100% 38%,
+      69% 59%,
+      82% 100%,
+      50% 75%,
+      18% 100%,
+      31% 59%,
+      0% 38%,
+      37% 38%);
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeleton-item {
+  background: linear-gradient(110deg, #4b5563 10%, #6b7280 18%, #4b5563 28%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 100%;
+  }
+
+  100% {
+        opacity: 80%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+/* For Loader */
+
+.one {
+  margin-right: -18px;
+  transform-origin: center left;
+  animation: spin 3s linear infinite;
+}
+
+.two {
+  transform-origin: center right;
+  animation: spin2 3s linear infinite;
+  animation-delay: .2s;
+}
+
+.three {
+  transform-origin: center right;
+  animation: spin3 3s linear infinite;
+  animation-delay: .3s;
+}
+
+.four {
+  transform-origin: center right;
+  animation: spin4 3s linear infinite;
+  animation-delay: .4s;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(360deg);
+  }
+
+  30% {
+    transform: rotate(370deg);
+  }
+
+  35% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(-180deg);
+  }
+
+  35% {
+    transform: rotate(-190deg);
+  }
+
+  40% {
+    transform: rotate(-180deg);
+  }
+
+  78% {
+    transform: rotate(-180deg);
+  }
+
+  95% {
+    transform: rotate(-360deg);
+  }
+
+  98% {
+    transform: rotate(-370deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes spin3 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  27% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(180deg);
+  }
+
+  45% {
+    transform: rotate(190deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  62% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(360deg);
+  }
+
+  80% {
+    transform: rotate(370deg);
+  }
+
+  85% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin4 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  38% {
+    transform: rotate(0deg);
+  }
+
+  60% {
+    transform: rotate(-360deg);
+  }
+
+  65% {
+    transform: rotate(-370deg);
+  }
+
+  75% {
+    transform: rotate(-360deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
 }
