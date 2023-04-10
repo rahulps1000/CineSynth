@@ -9,7 +9,7 @@ const Card = dynamic(() => import("./Card"));
 const teko = Teko({ subsets: ["latin"], weight: ["300"] });
 const oswald = Oswald({ subsets: ["latin"], weight: ["300"] });
 
-import { cinemas, categories, r } from "./constants";
+import { cinemas, categories } from "./constants";
 import Loader from "./Loader";
 
 function Home() {
@@ -61,7 +61,7 @@ function Home() {
 			<NavBar />
 			<div className="relative">
 				<div className="flex flex-row justify-center w-full h-screen items-center top-0 overflow-x-hidden">
-					<div className="text-xl w-[50%] text-center">
+					<div className="text-lg w-3/4 text-center sm:text-xl sm:w-1/2">
 						<span className={teko.className + " text-3xl"}>Cine Synth </span>
 						<span className={oswald.className + " text-gray-300"}>
 							is an innovative film and series recommendation system powered by
@@ -104,11 +104,11 @@ function Home() {
 						<div className="font-white">
 							What type of entertainment are you looking for?
 						</div>
-						<div className="flex gap-5 py-3">
+						<div className="flex gap-3 py-3 sm:gap-5">
 							{cinemas.map((item, index) => (
 								<div
 									key={index}
-									className={`text-xl border border-white px-4 py-2 rounded-lg hover:text-black inline-block cursor-pointer ${
+									className={`text-lg border border-white px-2 py-1 rounded-lg hover:text-black inline-block cursor-pointer sm:px-4 sm:py-2 sm:text-xl ${
 										cinema == item ? "selected-btn" : "hover:bg-gray-600"
 									}`}
 									onClick={(e) => onClickCinema(item)}
@@ -123,11 +123,11 @@ function Home() {
 							Which categories do you want the show or movie to include? (Please
 							select all that apply)
 						</div>
-						<div className="flex gap-5 py-3 flex-wrap">
+						<div className="flex gap-3 py-3 flex-wrap sm:gap-5">
 							{categories.map((item, index) => (
 								<div
 									key={index}
-									className={`text-xl border border-white px-4 py-2 rounded-lg hover:text-black inline-block cursor-pointer ${
+									className={`text-lg border border-white px-2 py-1 rounded-lg hover:text-black inline-block cursor-pointer sm:px-4 sm:py-2 sm:text-xl ${
 										category.includes(item)
 											? "selected-btn"
 											: "hover:bg-gray-600"
@@ -140,7 +140,7 @@ function Home() {
 						</div>
 					</div>
 					<div className="w-3/4 mb-10">
-						<div className="font-white">
+						<div className="font-white text-lg sm:text-xl">
 							No matter how specific or particular they may be, feel free to add
 							any additional specifications.
 						</div>
