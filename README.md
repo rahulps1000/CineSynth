@@ -1,12 +1,12 @@
 # CINE SYNTH
 
-GPT Powered Movie/Series Recomendation System.
+GPT Powered Movie/Series Recomendation System. This Brach works based on Bard AI.
 
 Set the following environment variables.
 
-- API Key from [Open AI](https://platform.openai.com/account/api-keys)
+- \_\_Secure-1PSID session from [Bard AI](https://bard.google.com/)
   ```
-  OPEN_AI_API_KEY
+  BARD_API
   ```
 - Api Key from [TMDB](https://www.themoviedb.org/settings/api)
   ```

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import Bard, { askAI } from "bard-ai";
 
 export async function POST(request) {
   const { type, categories, specification } = await request.json();
@@ -6,30 +7,16 @@ export async function POST(request) {
     return NextResponse.json({ status: "error" });
   }
   const query = generateQuery(type, categories, specification);
-  const url = "https://api.openai.com/v1/completions";
-  const payload = {
-    model: "text-davinci-003",
-    prompt: query,
-    temperature: 0.7,
-    max_tokens: 2048,
-    top_p: 1.0,
-    frequency_penalty: 0.0,
-    stream: false,
-    presence_penalty: 0.0,
-    n: 1,
-  };
-  const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPEN_AI_API_KEY}`,
-    },
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-  var data = await response.json();
-  var movies = data.choices[0].text.split("\n").join("").split(",");
-  movies = movies.map((m) => m.trim());
-  return NextResponse.json(movies);
+  await Bard.init(process.env.BARD_API);
+  var response = await askAI(query);
+  try {
+    var data = response.split("```")[1].replace(/\n/g, "");
+    var movies = data.split("|");
+    movies = movies.map((m) => m.trim());
+    return NextResponse.json(movies);
+  } catch (error) {
+    return NextResponse.json(response);
+  }
 }
 
 const generateQuery = (type, categories, specification) => {
@@ -47,6 +34,6 @@ const generateQuery = (type, categories, specification) => {
   if (categories || specification) {
     `If you do not have 5 recommendations that fit these criteria perfectly, do your best to suggest other ${type} that I might like.`;
   }
-  query += `Please return the names as a comma seperated list without numbering.`;
+  query += `Please return only the movie names seperated by |.I dont want any images or description or year in the resposne as code.`;
   return query;
 };
