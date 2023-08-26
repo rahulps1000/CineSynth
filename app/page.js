@@ -6,11 +6,14 @@ import { Teko, Oswald } from "next/font/google";
 import dynamic from "next/dynamic";
 const Card = dynamic(() => import("./Card"));
 
-const teko = Teko({ subsets: ["latin"], weight: ["300"] });
-const oswald = Oswald({ subsets: ["latin"], weight: ["300"] });
+const teko = Teko({ subsets: ["latin"], weight: "300" });
+const oswald = Oswald({ subsets: ["latin"], weight: "300" });
 
 import { cinemas, categories } from "./constants";
 import Loader from "./Loader";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
   const [cinema, setCinemas] = useState(null);
@@ -43,14 +46,31 @@ function Home() {
       categories: category,
       specification: specification,
     };
-    var response = await fetch(url, {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-    var data = await response.json();
-    setRecomendations(data);
-    setLoading(false);
+    try {
+      var response = await fetch(url, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      var data = await response.json();
+      console.log(data);
+      if (response.status == 200) setRecomendations(data);
+      else throw "error";
+    } catch (error) {
+      console.log(error);
+      setRecomendations([]);
+      toast.error("Internal Server Error. Please try after some time.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -173,6 +193,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </main>
   );
 }

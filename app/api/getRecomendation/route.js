@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Bard, { askAI } from "bard-ai";
+import Bard from "bard-ai";
 
 export async function POST(request) {
   const { type, categories, specification } = await request.json();
@@ -7,15 +7,18 @@ export async function POST(request) {
     return NextResponse.json({ status: "error" });
   }
   const query = generateQuery(type, categories, specification);
-  await Bard.init(process.env.BARD_API);
-  var response = await askAI(query);
+  let myBard = new Bard(process.env.BARD_API);
+  var response = await myBard.ask(query);
   try {
     var data = response.split("```")[1].replace(/\n/g, "");
     var movies = data.split("|");
     movies = movies.map((m) => m.trim());
     return NextResponse.json(movies);
   } catch (error) {
-    return NextResponse.json(response);
+    return new NextResponse(JSON.stringify(response), {
+      status: 500,
+      headers: { "content-type": "application/json" },
+    });
   }
 }
 

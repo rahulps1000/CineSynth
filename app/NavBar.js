@@ -1,6 +1,6 @@
 import { Teko } from "next/font/google";
 
-const teko = Teko({ subsets: ["latin"], weight: ["600"] });
+const teko = Teko({ subsets: ["latin"], weight: "600" });
 
 function NavBar() {
   return (
