@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import Bard from "bard-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API);
 
 export async function POST(request) {
   const { type, categories, specification } = await request.json();
@@ -7,19 +9,21 @@ export async function POST(request) {
     return NextResponse.json({ status: "error" });
   }
   const query = generateQuery(type, categories, specification);
-  let myBard = new Bard(process.env.BARD_API);
-  var response = await myBard.ask(query);
-  try {
-    var data = response.split("```")[1].replace(/\n/g, "");
-    var movies = data.split("|");
-    movies = movies.map((m) => m.trim());
+  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+  const result = await model.generateContent(query);
+  const response = await result.response;
+  const text = response.text();
+  try{
+    var movies = text.split("|");
     return NextResponse.json(movies);
-  } catch (error) {
+  } catch(error) {
     return new NextResponse(JSON.stringify(response), {
       status: 500,
       headers: { "content-type": "application/json" },
     });
   }
+
 }
 
 const generateQuery = (type, categories, specification) => {
