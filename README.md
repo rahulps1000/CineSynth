@@ -4,9 +4,9 @@ GPT Powered Movie/Series Recomendation System. This Brach works based on Bard AI
 
 Set the following environment variables.
 
-- \_\_Secure-1PSID session from [Bard AI](https://bard.google.com/)
+- \_\_Api Key from [Gemini AI](https://ai.google.dev/)
   ```
-  BARD_API
+  GEMINI_API
   ```
 - Api Key from [TMDB](https://www.themoviedb.org/settings/api)
   ```
