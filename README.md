@@ -4,7 +4,7 @@ GPT Powered Movie/Series Recomendation System. This Brach works based on Bard AI
 
 Set the following environment variables.
 
-- \_\_Api Key from [Gemini AI](https://ai.google.dev/)
+- Api Key from [Gemini AI](https://ai.google.dev/)
   ```
   GEMINI_API
   ```
