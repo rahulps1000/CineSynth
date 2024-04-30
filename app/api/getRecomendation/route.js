@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import axios from "axios";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API);
+const apikey = process.env.PERPLEXITY_API;
+const url = "https://api.perplexity.ai/chat/completions";
+
+const options = {
+  headers: {
+    accept: 'application/json',
+    'content-type': 'application/json',
+    authorization: `Bearer ${apikey}`
+  }}
 
 export async function POST(request) {
   const { type, categories, specification } = await request.json();
@@ -9,11 +17,22 @@ export async function POST(request) {
     return NextResponse.json({ status: "error" });
   }
   const query = generateQuery(type, categories, specification);
-  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
-  const result = await model.generateContent(query);
-  const response = await result.response;
-  const text = response.text();
+  const data = JSON.stringify({
+    model: 'mistral-7b-instruct',
+    messages: [
+      {
+        role: 'user',
+        content: query
+      }
+    ]
+  })
+
+  const response = await axios.post(url,data,options);
+
+  const text = response.data.choices[0].message.content;
+
+  console.log();
   try{
     var movies = text.split("|");
     return NextResponse.json(movies);

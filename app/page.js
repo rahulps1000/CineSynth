@@ -75,7 +75,9 @@ function Home() {
 
   useEffect(() => {
     setCinemas("Both");
-  }, []);
+    if(recomendations.length > 0)
+    scrollToSection("results");
+  }, [loading]);
   return (
     <main className="absolute">
       <NavBar />
@@ -180,7 +182,7 @@ function Home() {
               Generate Recomendation
             </button>
           </div>
-          <div className="w-3/4 mt-10 h-50 grid place-items-center relative py-2">
+          <div id="results" className="w-3/4 mt-10 h-50 grid place-items-center relative py-2">
             {recomendations && !loading ? (
               recomendations.map((item, index) => (
                 <Card key={index} title={item} />
