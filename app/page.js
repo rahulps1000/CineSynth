@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 function Home() {
   const [cinema, setCinemas] = useState(null);
   const [category, setCategories] = useState([]);
-  const [specification, setSpecification] = useState([]);
+  const [specification, setSpecification] = useState("");
   const [recomendations, setRecomendations] = useState([]);
   const [loading, setLoading] = useState(false);
 

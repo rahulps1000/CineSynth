@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API);
+const GEMINI_API_KEY = process.env.GEMINI_API;
+
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 export async function POST(request) {
   const { type, categories, specification } = await request.json();
@@ -9,21 +11,21 @@ export async function POST(request) {
     return NextResponse.json({ status: "error" });
   }
   const query = generateQuery(type, categories, specification);
-  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
-  const result = await model.generateContent(query);
-  const response = await result.response;
-  const text = response.text();
-  try{
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash-preview-04-17",
+    contents: query,
+  });
+  const text = response.text;
+  try {
     var movies = text.split("|");
     return NextResponse.json(movies);
-  } catch(error) {
+  } catch (error) {
     return new NextResponse(JSON.stringify(response), {
       status: 500,
       headers: { "content-type": "application/json" },
     });
   }
-
 }
 
 const generateQuery = (type, categories, specification) => {
@@ -32,7 +34,7 @@ const generateQuery = (type, categories, specification) => {
     type = "Movie or TV Show";
   }
   query += type;
-  if (categories) {
+  if (categories.length != 0) {
     query += ` that fits the following categories: ${categories} .`;
   }
   if (specification) {
