@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
+import ImageWithFallback from "./ImageWithFallback";
 
 const fetchMovieData = async (title) => {
   const url = `/api/movie?name=${title}`;
@@ -18,7 +18,7 @@ function Card({ title }) {
 
   return data && data["result"] == "success" ? (
     <div className="relative bg-gray-900 w-full my-5 rounded-xl">
-      <Image
+      <ImageWithFallback
         className="absolute w-full h-full object-cover object-left-top opacity-10 rounded-xl"
         src={`https://image.tmdb.org/t/p/original${data["backdrop"]}`}
         width={300}
@@ -26,9 +26,10 @@ function Card({ title }) {
         alt={title}
       />
       <div className="w-full min-h-52 flex flex-col sm:flex-row sm:h-52">
-        <Image
+        <ImageWithFallback
           className="relative h-full w-auto p-2.5 rounded-2xl"
           src={`https://image.tmdb.org/t/p/original${data["poster"]}`}
+          fallbackSrc="/poster.jpg"
           width={300}
           height={300}
           alt={title}
@@ -75,9 +76,10 @@ function Card({ title }) {
   ) : (
     <div className="relative bg-gray-900 w-full my-5 rounded-xl skeleton">
       <div className="w-full min-h-52 flex flex-col sm:flex-row sm:h-52">
-        <Image
+        <ImageWithFallback
           className="relative h-full w-auto p-2.5 rounded-2xl"
           src="/poster.png"
+          fallbackSrc="/poster.png"
           width={300}
           height={300}
           alt={title}

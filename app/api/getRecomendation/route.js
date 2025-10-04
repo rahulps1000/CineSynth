@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 
-const GEMINI_API_KEY = process.env.GEMINI_API;
+const OPEN_AI_API_KEY = process.env.OPEN_AI_API_KEY;
 
-const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+const openai = new OpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: OPEN_AI_API_KEY,
+  defaultHeaders: {
+    "HTTP-Referer": "https://cinesynth.vercel.app/",
+    "X-Title": "CineSynth",
+  },
+});
 
 export async function POST(request) {
   const { type, categories, specification } = await request.json();
@@ -12,11 +19,16 @@ export async function POST(request) {
   }
   const query = generateQuery(type, categories, specification);
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash-preview-04-17",
-    contents: query,
+  const completion = await openai.chat.completions.create({
+    model: "deepseek/deepseek-chat-v3.1:free",
+    messages: [
+      {
+        role: "user",
+        content: query,
+      },
+    ],
   });
-  const text = response.text;
+  const text = completion.choices[0].message.content;
   try {
     var movies = text.split("|");
     return NextResponse.json(movies);

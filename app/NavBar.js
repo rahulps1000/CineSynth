@@ -14,7 +14,7 @@ function NavBar() {
           </div>
           <div className="flex items-center">
             <a
-              href="https://github.com/rahulps1000"
+              href="https://github.com/rahulps1000/CineSynth"
               className="text-gray-400 hover:text-white"
               target="_blank"
             >
